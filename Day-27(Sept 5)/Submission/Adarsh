@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int binarySearch(vector<int>& nums, int target, int left, int right){
+        while(left <= right){
+            int mid = left + ((right-left)>>1);
+            if(target == nums[mid])
+                return mid;
+            else if(target > nums[mid])
+                left = mid + 1;
+            else
+                right = mid-1;
+        }
+        return -1;
+    }
+    
+    int search(vector<int>& nums, int target) {
+        int left = 0, right = nums.size()-1;
+        int resIdx;
+        while(left < right){
+            int mid = left + ((right-left)>>1);
+            if(nums[mid] > nums[right])
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        resIdx = binarySearch(nums, target, left, nums.size()-1);
+        if(resIdx == -1)
+            resIdx = binarySearch(nums, target, 0, left-1);
+        return resIdx;
+    }
+};
